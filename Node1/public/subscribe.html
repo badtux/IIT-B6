@@ -1,0 +1,53 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/main.css">
+</head>
+<body>
+    <form method="post" action="http://127.0.0.1:3000/createUser" enctype="application/x-www-form-urlencoded">
+        <fieldset>
+            <legend>Complete your details</legend>
+            <div>
+                <label for="fullName">Full Name</label>
+                <input type="text" id="fullName" name="fullName">    
+            </div>
+
+            <div>
+                <label>Profile Picture</label>
+                <input type="file" name="ppic">
+            </div>
+
+            <div>
+                <fieldset>
+                    <label for="gender">Gender</label>
+                    <input type="radio" name="gender" value="M">
+                    <input type="radio" name="gender" value="F">
+                    <input type="radio" name="gender" value="O">
+                </fieldset>
+            </div>
+        
+            <div>
+                <label for="province">Province</label>
+                <select name="province">
+                    <option>WP</option>
+                    <option value="ep">EP</option>
+                    <option value="sp">SP</option>
+                    <option value="ne">NE</option>
+                </select>
+            </div>
+            
+            <div>
+                <label for="opt-in">Subscribe</label>
+                <input type="checkbox" name="opt-in">
+            </div>
+            
+            <div>
+                <input type="submit" name="Add User">
+                <input type="reset">
+            </div>
+        </fieldset>
+    </form>
+</body>
+</html>
