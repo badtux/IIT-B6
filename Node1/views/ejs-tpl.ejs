@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+    <%- include('partials/head') %>
+    <body style="background-color: tan;">
+        <h1>Topic: <%= title %></h1>
+        <h3>Assets</h3>
+        <%if (typeof owns != 'undefined') { %>
+        <ul>
+            <% owns.forEach(asset => { %> 
+               <li><%= asset %></li> 
+            <% }); %>
+        </ul>
+        <% } else { %>
+            <p>Assets are not declared</p>
+        <% } %>
+        <h3>Bio</h3>
+        <h4><%= spec.name %> (<%= spec.age %>)</h4>
+        <label for="fav_hobby">What's your favourite? </label>
+        <select name="fav_hobby" id="fav_hobby">
+            <% spec.hobbies.forEach(hobby => { %> 
+               <option><%= hobby %></option> 
+            <% }); %>
+        </select>
+    </body>
+</html>

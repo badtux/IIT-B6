@@ -1,0 +1,38 @@
+const exp = require('express');
+const app = exp();
+const prt = 3000;
+
+app.set('view engine', 'ejs');
+
+app.listen(prt, () => {
+    console.log(`Server started at port: http://localhost:${prt}`);
+});
+
+app.get('/res-send-sample', (req, res) => {
+    res.send('Hello. This is some data');
+});
+
+app.get('/res-json-sample', (req, res) => {
+    var message = 'This is a string';
+    var array = ['Apple', 'Bat', 'Ball'];
+    var object = { name: 'John Doe', age: 27, hobbies: ['Cycling', 'Racing', 'Skieing'] };
+
+    res.json({
+        'msg': message,
+        'owns' : array,
+        'spec' : object,
+        status: 200
+    });
+});
+
+app.get('/res-ejs-sample', (req, res) => {
+    var message = 'Templates with EJS';
+    var array = ['Apple', 'Bat', 'Ball'];
+    var object = { name: 'John Doe', age: 27, hobbies: ['Cycling', 'Racing', 'Skieing'] };
+
+    res.render('ejs-tpl', {
+        'title': message,
+        'uowns' : array,
+        'spec' : object
+    });
+});
