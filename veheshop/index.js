@@ -66,6 +66,9 @@ var essentials = [
 const mainDb = new sql3.Database('iit.shop.db');
 mainDb.run('CREATE TABLE IF NOT EXISTS catalog (pid INTEGER PRIMARY KEY AUTOINCREMENT, imagePath TEXT, iamgeAlt TEXT, discount INTEGER, price DECIAML(9,2), salePrice DECIMAL(9,2), name TEXT, options TEXT)');
 
+// essentials.forEach(item => {
+//     mainDb.run('INSERT INTO catalog (imagePath, iamgeAlt, discount, price, salePrice, name, options) VALUES (?,?,?,?,?,?,?)', item.imagePath, item.imageAlt, item.discount, item.price, item.salePrice, item.name, item.options.toString());
+// });
 
 app.get('/product/:pid', (req, res) => {
     console.log(req.params.pid);
