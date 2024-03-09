@@ -63,7 +63,7 @@ app.get('/product/:pid', (req, res) => {
 
     console.log(product);
 
-    res.render('product', product);
+    res.render('product-single', product);
 });
 
 app.get('/', (req, res) => {
