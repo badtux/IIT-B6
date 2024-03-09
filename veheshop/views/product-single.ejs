@@ -41,10 +41,10 @@
     	<div class="container">
     		<div class="row">
     			<div class="col-lg-6 mb-5 ftco-animate">
-    				<a href="/images/product-1.jpg" class="image-popup"><img src="/images/product-1.jpg" class="img-fluid" alt="Colorlib Template"></a>
+    				<a href="/images/product-1.jpg" class="image-popup"><img src="/<%= imagePath %>" class="img-fluid" alt="Colorlib Template"></a>
     			</div>
     			<div class="col-lg-6 product-details pl-md-5 ftco-animate">
-    				<h3>Bell Pepper</h3>
+    				<h3><%= name %></h3>
     				<div class="rating d-flex">
 							<p class="text-left mr-4">
 								<a href="#" class="mr-2">5.0</a>
@@ -70,10 +70,9 @@
 		              <div class="select-wrap">
 	                  <div class="icon"><span class="ion-ios-arrow-down"></span></div>
 	                  <select name="" id="" class="form-control">
-	                  	<option value="">Small</option>
-	                    <option value="">Medium</option>
-	                    <option value="">Large</option>
-	                    <option value="">Extra Large</option>
+						<% options.forEach(option => { %>
+							<option value=""><%= option %></option>
+						<% }); %>
 	                  </select>
 	                </div>
 		            </div>

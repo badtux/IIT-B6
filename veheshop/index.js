@@ -1,4 +1,5 @@
 const exp = require('express');
+const sql3 = require('sqlite3');
 const app = exp();
 const prt = 3000;
 
@@ -17,7 +18,8 @@ var essentials = [
         discount: 30,
         price: 120,
         salePrice: 80,
-        name: 'Bell pepper'
+        name: 'Bell pepper',
+        options: ['Small','Medium','Large','Extra Large']
     },
     {
         id: 333,
@@ -26,7 +28,8 @@ var essentials = [
         discount: 30,
         price: 120,
         salePrice: 80,
-        name: 'Bell pepper'
+        name: 'Bell pepper',
+        options: ['Small','Medium','Large']
     },
     {
         id: 41,
@@ -35,7 +38,8 @@ var essentials = [
         discount: 30,
         price: 120,
         salePrice: 80,
-        name: 'Bell pepper'
+        name: 'Tomatoes',
+        options: ['Small','Extra Large']
     },
     {
         id: 14,
@@ -44,7 +48,8 @@ var essentials = [
         discount: 30,
         price: 120,
         salePrice: 80,
-        name: 'Bell pepper'
+        name: 'Bell pepper',
+        options: ['Small']
     },
     {
         id: 234,
@@ -53,9 +58,14 @@ var essentials = [
         discount: 30,
         price: 120,
         salePrice: 80,
-        name: 'Bell pepper'
+        name: 'Bell pepper',
+        options: ['Large only']
     }
 ];
+
+const mainDb = new sql3.Database('iit.shop.db');
+mainDb.run('CREATE TABLE IF NOT EXISTS catalog (pid INTEGER PRIMARY KEY AUTOINCREMENT, imagePath TEXT, iamgeAlt TEXT, discount INTEGER, price DECIAML(9,2), salePrice DECIMAL(9,2), name TEXT, options TEXT)');
+
 
 app.get('/product/:pid', (req, res) => {
     console.log(req.params.pid);
