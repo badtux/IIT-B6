@@ -70,15 +70,34 @@ mainDb.run('CREATE TABLE IF NOT EXISTS catalog (pid INTEGER PRIMARY KEY AUTOINCR
 //     mainDb.run('INSERT INTO catalog (imagePath, iamgeAlt, discount, price, salePrice, name, options) VALUES (?,?,?,?,?,?,?)', item.imagePath, item.imageAlt, item.discount, item.price, item.salePrice, item.name, item.options.toString());
 // });
 
-app.get('/product/:pid', (req, res) => {
-    console.log(req.params.pid);
-    const product = essentials.find((product) => product.id == req.params.pid);
+function getCatalog(pid=false) {
+    if(pid){
+        mainDb.get('SELECT * FROM catalog WHERE pid = ?', [pid], (err, row) => {
+            console.log(row.imagePath);
+        });
 
-    console.log(product);
+        // const statement = mainDb.prepare('SELECT * FROM catalog WHERE pid = ?');
+        // statement.bind(pid);
+        // const row = statement.get();
+        // statement.finalize();
+
+        // console.log(row);
+
+        return essentials.find((product) => product.id == pid);
+    }
+    else {
+        return essentials;
+    }
+}
+
+app.get('/product/:pid', (req, res) => {
+    //console.log(req.params.pid);
+    const product = getCatalog(req.params.pid);
+    //console.log(product);
 
     res.render('product-single', product);
 });
 
 app.get('/', (req, res) => {
-    res.render('home', { essentials: essentials});
+    res.render('home', { essentials: getCatalog()});
 });
