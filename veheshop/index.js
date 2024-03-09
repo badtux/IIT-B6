@@ -58,10 +58,14 @@ var essentials = [
 ];
 
 app.get('/product/:pid', (req, res) => {
-    var product = essentials.find(product => product.id === pid);
+    console.log(req.params.pid);
+    const product = essentials.find((product) => product.id == req.params.pid);
+
+    console.log(product);
+
     res.render('product', product);
 });
 
 app.get('/', (req, res) => {
-    res.render('home', essentials);
+    res.render('home', { essentials: essentials});
 });
