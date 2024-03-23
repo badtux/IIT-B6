@@ -18,16 +18,21 @@
 
             const xhr = new XMLHttpRequest();
             xhr.open('POST', '/note/add');
-
             xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
             
             xhr.onreadystatechange = function(){
+                // console.log(xhr.readyState);
+
+                // if(xhr.readyState == 4 && xhr.status === 400){
+                //     alert('Please try again');
+                // }
+
                 if(xhr.readyState == 4 && xhr.status === 200){
                     window.location.reload();
                 }
-                xhr.send(JSON.stringify({ title, content}));
             }
 
+            xhr.send(JSON.stringify({ title, content}));
         }
 
         function showPopAdd(){

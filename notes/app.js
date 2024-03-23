@@ -5,15 +5,17 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 // Create and connect to SQLite database
-const db = new sqlite3.Database(':memory:');
+const db = new sqlite3.Database('iit.notes');
 
 // Create a table for notes
 db.serialize(() => {
-  db.run("CREATE TABLE notes (id INTEGER PRIMARY KEY, title TEXT, content TEXT)");
+  db.run("CREATE TABLE IF NOT EXISTS notes (id INTEGER PRIMARY KEY, title TEXT, content TEXT)");
 });
 
 // Middleware
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json()); // Parse JSON bodies
+app.use(bodyParser.urlencoded({ extended: true })); // Parse URL-encoded
+
 app.set('view engine', 'ejs');
 
 // Routes
@@ -54,6 +56,10 @@ app.post('/note/delete/:id', (req, res) => {
 
 app.post('/note/add', (req, res) => {
   const { title, content } = req.body;
+
+  console.log(req.body);
+  console.log(title);
+
   db.run("INSERT INTO notes (title, content) VALUES (?, ?)", [title, content], (err) => {
     if (err) {
       console.error(err.message);
