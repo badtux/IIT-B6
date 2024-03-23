@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notes App</title>
+</head>
+<body>
+    <h1>Notes</h1>
+    <ul>
+        <% notes.forEach(note => { %>
+            <li>
+                <%= note.title %> 
+                <a href="/note/<%= note.id %>">View</a> 
+                <form action="/note/delete/<%= note.id %>" method="POST" style="display:inline;">
+                    <button type="submit">Delete</button>
+                </form>
+            </li>
+        <% }); %>
+    </ul>
+</body>
+</html>

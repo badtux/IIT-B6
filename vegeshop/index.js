@@ -70,20 +70,19 @@ mainDb.run('CREATE TABLE IF NOT EXISTS catalog (pid INTEGER PRIMARY KEY AUTOINCR
 //     mainDb.run('INSERT INTO catalog (imagePath, iamgeAlt, discount, price, salePrice, name, options) VALUES (?,?,?,?,?,?,?)', item.imagePath, item.imageAlt, item.discount, item.price, item.salePrice, item.name, item.options.toString());
 // });
 
-function getCatalog(pid=false) {
+function getCatalog(){
+
+}
+
+function getCatalog(pid=false, callback) {
     if(pid){
-        mainDb.get('SELECT * FROM catalog WHERE pid = ?', [pid], (err, row) => {
-            console.log(row.imagePath);
+        mainDb.get(`SELECT * FROM catalog WHERE pid = ?`, id, (err, product) => {
+            if(err) { throw error } else {
+                callback(null, product);
+            }
         });
 
-        // const statement = mainDb.prepare('SELECT * FROM catalog WHERE pid = ?');
-        // statement.bind(pid);
-        // const row = statement.get();
-        // statement.finalize();
-
-        // console.log(row);
-
-        return essentials.find((product) => product.id == pid);
+        //return essentials.find((product) => product.id == pid);
     }
     else {
         return essentials;
@@ -91,11 +90,11 @@ function getCatalog(pid=false) {
 }
 
 app.get('/product/:pid', (req, res) => {
-    //console.log(req.params.pid);
-    const product = getCatalog(req.params.pid);
-    //console.log(product);
+    // console.log(req.params.pid);
+   const product = getCatalog(req.params.pid);
+    console.log(product);
 
-    res.render('product-single', product);
+    res.render('product-single', {item: {imagePath: 'asasas'}});
 });
 
 app.get('/', (req, res) => {
