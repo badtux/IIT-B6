@@ -52,6 +52,18 @@ app.post('/note/delete/:id', (req, res) => {
   });
 });
 
+app.post('/note/add', (req, res) => {
+  const { title, content } = req.body;
+  db.run("INSERT INTO notes (title, content) VALUES (?, ?)", [title, content], (err) => {
+    if (err) {
+      console.error(err.message);
+      res.status(500).send('Internal Server Error');
+    } else {
+      res.sendStatus(200);
+    }
+  });
+});
+
 // Start server
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
