@@ -4,9 +4,46 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Notes App</title>
+    <style>
+        .popadd {
+            visibility: hidden; 
+            border: 1px solid red;
+        }
+    </style>
+
+    <script>
+        function saveNote(){
+            const title = document.getElementById('title').value;
+            const content = document.getElementById('content').value;
+
+            const xhr = new XMLHttpRequest();
+            xhr.open('POST', '/note/add');
+
+            xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
+            
+            xhr.onreadystatechange = function(){
+                if(xhr.readyState == 4 && xhr.status === 200){
+                    window.location.reload();
+                }
+                xhr.send(JSON.stringify({ title, content}));
+            }
+
+        }
+
+        function showPopAdd(){
+            document.getElementById('popadd').style.visibility = 'visible';
+                // alert(text)
+                // more('clicked', 'text');
+        }
+
+        // function more(what, how){
+        //     confirm(what +' -> '+' Thank you --> '+how);
+        // }
+    </script>
 </head>
 <body>
     <h1>Notes</h1>
+    <button onclick="showPopAdd()" >Add</button>
     <ul>
         <% notes.forEach(note => { %>
             <li>
@@ -18,5 +55,18 @@
             </li>
         <% }); %>
     </ul>
+    
+    <div id="popadd" class="popadd">
+        <form>
+            <label for="title">Title</label>
+            <input id="title" name="title">
+            <br>
+            <label for="content">Note content</label>
+            <textarea id="content" name="content"></textarea>
+            <br>
+            <button type="button" onclick="saveNote()">Save</button>
+        </form>
+    </div>
+
 </body>
 </html>
